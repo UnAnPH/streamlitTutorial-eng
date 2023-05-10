@@ -1,52 +1,52 @@
 # Streamlit Tutorial: Live Coding
 
-Creazione di un'applicazione web multi-page in Streamlit interagendo con un database MySQL per visualizzare e aggiungere dati.
+Creation of a multi-page web application in Streamlit by interacting with a MySQL database to view and add data.
 
-```git clone https://github.com/AndreaAvignone/streamlitTutorial.git```
+```git clone https://github.com/Cryst4lDr4g0n/streamlitTutorial-eng.git```
 
 ## Warm up 
-* Branch *live_coding* è il punto di partenza, branch *live_coding_complete* è l'applicazione finale, branch *base* come starting point per un nuovo progetto generico.
-* Per ulteriori informazioni riguardo al database far riferimento a https://www.mysqltutorial.org/mysql-sample-database.aspx.
-* Per la guida passo-passo sulla creazione dell'applicazione, dar riferimento a *guide.md*
-* Per aggiungere emojii utilizzare https://emojifinder.com con copia-incolla.
+* Branch *live_coding* is the starting point, branch *live_coding_complete* is the final application, branch *base* is the starting point for a new generic project.
+* For more information about the database, refer to https://www.mysqltutorial.org/mysql-sample-database.aspx.
+* For the step-by-step guide on creating the application, refer to *guide.md*
+* To add emojis use https://emojifinder.com with copy-past.
 
 ## Environment
-### Per ulteriori informazioni riguardo ai diversi OS e Streamlit: https://docs.streamlit.io/library/get-started/installation
+### For more information about the different OS and Streamlit: https://docs.streamlit.io/library/get-started/installation
 
-#### 1. Installare l'environment MySQL (con Docker e Docker-compose https://github.com/AndreaAvignone/mysql-docker.git)
-#### 2. Creare un nuovo virtual environment Python (e.g. *pipenv*).
+#### 1. Install the MySQL environment (with Docker and Docker-compose https://github.com/Cryst4lDr4g0n/mysql-docker-eng.git)
+#### 2. Create a new Python virtual environment (e.g. *pipenv*).
 
-Installare pipenv:
+Install pipenv:
 ```
 pip install pipenv
 ```
-Avviare il virtual env:
+Start the virtual env:
 ```
 pipenv shell
 ```
-Installare le dependencies:
+Install the dependencies:
 ```
 pip install -r requirements.txt
 
 ```
-#### 3. Verificare l'installazione di streamlit:
+#### 3. Verify the installation of streamlit:
 ```
 streamlit hello
 ```
 
-Per fermare:
+To stop it:
 
 ```Ctrl + C```
 
-#### 4. Lanciare l'applicazione:
+#### 4. Launch the application:
 ```
 python -m streamlit run 01_🏠_Home.py
 ```
-O direttamente con il comando *streamlit*:
+Or directly with the command *streamlit*:
 ```
 streamlit run 01_🏠_Home.py
 ```
-Per evitare che si apri in automatico il browser:
+To prevent the browser from opening automatically:
 ```
 streamlit run 01_🏠_Home.py --server.headless true
 ```

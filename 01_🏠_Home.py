@@ -11,7 +11,7 @@ if __name__ == "__main__":
         menu_items={
             'Get Help': 'https://dbdmg.polito.it/',
             'Report a bug': "https://dbdmg.polito.it/",
-            'About': "# Corso di *Basi di Dati*"
+            'About': "# *Introduction to Databases* course"
         }
     )
 
