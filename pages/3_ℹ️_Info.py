@@ -1,14 +1,14 @@
 import streamlit as st
 
 if __name__ == "__main__":
-    st.title("ℹ️ Informazioni sul :red[DB]")
-    st.subheader("*Database di un rivenditore di modellini in scala di automobili.*")
+    st.title("ℹ️ About the :red[DB]")
+    st.subheader("*Database of a scale model car dealer.*")
 
     col1,col2=st.columns(2)
     col1.image("images/MySQL-Sample-Database-Schema.png")
-    col2.markdown("### 🎯 :blue[Obiettivo]: Realizzare una semplice dashboard che raccola alcune delle principali informazioni dell'azienda.")
-    col2.markdown("### 📁 :blue[DB]: Si tratta di un Database MySQL di esempio chiamato *classicmodels* ")
-    col2.markdown("### 🔬 :blue[Requisiti]: Riportare una panoramica dei prodotti, staff e clienti. Includere un'interfaccia per aggiungere nuovi prodotti al database.")
-    col2.markdown("### 📊 :blue[Visualizzazione]: Eseguire le interrogazioni in SQL attraverso *SQLAlchemy* e visualizzare i risultati attraverso i widget :red[Streamlit].")
+    col2.markdown("### 🎯 :blue[Goal]: Create a simple dashboard that collects some of the company's key information.")
+    col2.markdown("### 📁 :blue[DB]: This is a sample MySQL Database called *classicmodels* ")
+    col2.markdown("### 🔬 :blue[Requirements]: Report an overview of products, staff and customers. Include an interface to add new products to the database.")
+    col2.markdown("### 📊 :blue[Visualization]: Run SQL queries through *SQLAlchemy* and display results through :red[Streamlit] widgets.")
     
-    st.markdown("🌐 Per ulteriori informazioni: https://www.mysqltutorial.org/mysql-sample-database.aspx")
+    st.markdown("🌐 For further information: https://www.mysqltutorial.org/mysql-sample-database.aspx")
