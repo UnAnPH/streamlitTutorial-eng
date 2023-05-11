@@ -11,7 +11,7 @@ if __name__ == "__main__":
         menu_items={
             'Get Help': 'https://dbdmg.polito.it/',
             'Report a bug': "https://dbdmg.polito.it/",
-            'About': "# Corso di *Basi di Dati*"
+            'About': "# *Introduction to Databases* course"
         }
     )
 
@@ -19,8 +19,8 @@ if __name__ == "__main__":
     col1,col2=st.columns([3,2])
     with col1:
         st.title(":red[Live Coding] Session")
-        st.markdown("## Corso di :blue[Basi di Dati]")
-        st.markdown("#### 🧑‍💻️ Creazione di una dashboard")
+        st.markdown("## :blue[Introduction to Databases] course")
+        st.markdown("#### 🧑‍💻️ Creating a dashboard")
     with col2:
         st.image("images/polito_white.png")
         
