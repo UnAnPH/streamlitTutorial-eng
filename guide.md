@@ -1,14 +1,14 @@
-# Guida Live Coding
+# Live Coding Guide
 
->Operazioni step-by-step per completare la dashboard sul DB *classicmodels*
+>Step-by-step operations to complete the dashboard on the DB *classicmodels*
 
-## Presentazione progetto
-* Cartella ```images```
-* Cartella ```pages```
+## Project presentation
+* Folder ```images```
+* Folder ```pages```
 * Script utils ```utils/utils.py```
 * File ```01_🏠_Home``` (homepage)
 
-### Avviare il progetto 
+### Starting the project 
 ``` pip install pipenv```
 
 ```pipenv shell```
@@ -17,69 +17,69 @@
 
 ```python -m streamlit run 01_🏠_Home.py```
 
-## Markdown e personalizzazione pagina
-Nella pagina Home:
+## Markdown and page customization
+In the Home page:
 
-1. Inserire la configurazione di pagina
+1. Insert the page configuration
 	```st.set_page_config()```
-2. Dividere in colonne ```st.columns([3,2])```
-3. Inserire titoli e sottotitoli ```st.title()``` e ```st.markdown()```
-4. (Opzionale) Personalizzare il tema
-5. Caricare l'immagine ```st.image()```
-6. Inizializzare il session state ```st.session_state["connection"]```
+2. Split into columns ```st.columns([3,2])```
+3. Insert headings and subheadings ```st.title()``` e ```st.markdown()```
+4. (Optional) Customize the theme
+5. Load the image ```st.image()```
+6. Initialize the session state ```st.session_state["connection"]```
 
-## Connessione al Database
-Definire le funzioni e i comandi per connettersi al database.
+## Connecting to the Database
+Define functions and commands to connect to the database.
 
-1. Includere le funzioni ```connect_db(dialect,username,password,host,dbname)``` e ```execute_query(conn,query)``` in *utils*
-2. Aggiungere la funzione ```check_connection()``` a *utils* e richiamarla nella home
-3. Visualizzare sulla sidebar il pulsante
+1. Include functions ```connect_db(dialect,username,password,host,dbname)``` and ```execute_query(conn,query)``` in *utils*
+2. Add the function ```check_connection()``` to *utils* and invoke it in the Home
+3. Show the button on the sidebar
 
-## Setup della pagina Analisi
-Definire la struttura della pagina
-1. Definire i tab ```st.tabs(["Prodotti","Staff","Clienti"])```
-2. Richiamare il check con comando per accedere al database attraverso il pulsante sulla sidebar:
+## Setup of the Analysis page
+Define the structure of the page
+1. Define tabs ```st.tabs(["Products","Staff","Customers"])```
+2. Invoke the check with command to access the database through the button on the sidebar:
 ```
 if check_connection():
 	pass
 ```
 
-### Visualizzazione Prodotti
-Panoramica delle principali informazioni riguardanti i prodotti in vendita. Creare la funzione ```create_tab_prodotti(tab_prodotti)```
-e aggiungerla al *main*:
+### Product Visualization
+Overview of the main information regarding the products on sale. Create the function ```create_products_tab(products_tab)```
+and add it to *main*:
 ```
 if check_connection():
-    create_tab_prodotti(tab_prodotti=tab_prodotti)
+    create_products_tab(products_tab=products_tab)
 ```
 
-#### Metriche
-Raccogliere le informazioni riguardante i pagamenti: *Importo totale, Pagamento Massimo, Pagamento Medio*.
+#### Metrics
+Collect payment information: *Total Amount, Max Payment, Average Payment*.
 
 SQL: ```SELECT SUM(amount) AS 'Total Amount', MAX(amount) AS 'Max Payment', AVG(amount) AS 'Average Payment' FROM payments:```
 
-1. Aggiungere la funzione ```compact_format(num)``` a *utils* per una migliore visualizzazione dei numeri grandi.
-2. Definire le 3 colonne con ```tab_prodotti.columns(3)```
+1. Add the function ```compact_format(num)``` to *utils* for a better visualization of large numbers.
+2. Define 3 columns with ```products_tab.columns(3)```
 3. Per ogni colonna definire la metrica specifica con ```col.metric()```
 
-#### Panoramica Prodotti
-Visualizzare i prodotti in vendita con widget di personalizzazione della query riguardo al *sorting*.
-1. Definire il primo expander con la with notation e il flag `expanded=True` o `expanded=False` a piacimento
+#### Product Overview
+View products for sale with query customization widgets about the *sorting*.
+1. Define the first expander with the with notation and the flag `expanded=True` or `expanded=False` at will
 ```
-with tab_prodotti.expander("Panoramica Prodotti",True):
-	# Codice
+with products_tab.expander("Product Overview",True):
+	# Code
 ```
-2. Definire le colonne all'interno dell'expander con le dimensioni per migliorare la resa grafica.
-3. Definire il dizionario per il mapping di *DESC* e *ASC*
-3. Includere il *radio button*, il *select box* e il *button*
+2. Define the columns within the expander with dimensions to improve the graphic rendering.
+3. Define the dictionary for mapping *DESC* and *ASC*
+3. Include the *radio button*, *select box*, and *button*
 ```
 prod_col1.radio()
 prod_col2.selectbox()
 prod_col1.button():
 ```
-4. Eseguire la query e visualizzare il dataframe ottenuto
+4. Run the query and view the resulting dataframe
 
-#### Pagamenti
-Visualizzare l'andamento dei pagamenti con filtro temporale.
+#### Payments
+View the progress of payments with time filter.
 
 1. Definire il secondo expander con la with notation
 ```
