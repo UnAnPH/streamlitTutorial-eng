@@ -55,7 +55,7 @@ def create_form():
         msrp=st.number_input("MSRP")
 
         #final dictionary with all parameters
-        insert_dict= {"productCode":code, "productName":name,"productLine":category,"productScale":scale,"productVendor":vendor,"productDescription":description,"quantityInStock":quantity,"buyPrice":prezzo,"MSRP":msrp}
+        insert_dict= {"productCode":code, "productName":name,"productLine":category,"productScale":scale,"productVendor":vendor,"productDescription":description,"quantityInStock":quantity,"buyPrice":price,"MSRP":msrp}
         
         #submit button fundamental for the form
         submitted =st.form_submit_button("Submit",type='primary')
