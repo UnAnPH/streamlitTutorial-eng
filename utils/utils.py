@@ -1,9 +1,9 @@
 import streamlit as st
 from sqlalchemy import create_engine,text
 
-"""Raccoglie le principali funzioni condivise dalle varie pagine"""
+"""Collects the main functions shared by the various pages"""
 
-#connettersi all'engine
+#Connect to the engine
 def connect_db(dialect,username,password,host,dbname):
     try:
         engine=create_engine(f'{dialect}://{username}:{password}@{host}/{dbname}')
@@ -15,7 +15,7 @@ def connect_db(dialect,username,password,host,dbname):
 def execute_query(conn,query):
     return conn.execute(text(query))
 
-#Mostrare i numeri in una forma più compatta
+#Show numbers in a more compact form
 def compact_format(num):
     num=float(num)
     if abs(num) >= 1e9:
@@ -27,21 +27,21 @@ def compact_format(num):
     else:
         return "{:.0f}".format(num)
 
-#Controllare se la connessione al db è stata effettuata
+#Check if the connection to the db has been made
 def check_connection():
     if "connection" not in st.session_state.keys():
         st.session_state["connection"]=False
 
-    if st.sidebar.button("Connettiti al Database"):
+    if st.sidebar.button("Connect to the Database"):
         myconnection=connect_db(dialect="mysql+pymysql",username="root",password="mypassword",host="localhost",dbname="classicmodels")
         if myconnection is not False:
             st.session_state["connection"]=myconnection
 
         else:
             st.session_state["connection"]=False
-            st.sidebar.error("Errore nella connessione al DB")
+            st.sidebar.error("Error connecting to DB")
 
     if st.session_state["connection"]:
-        st.sidebar.success("Connesso al DB")
+        st.sidebar.success("Connected to DB")
         return True
 
