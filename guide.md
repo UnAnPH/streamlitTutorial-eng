@@ -1,14 +1,14 @@
-# Guida Live Coding
+# Live Coding Guide
 
->Operazioni step-by-step per completare la dashboard sul DB *classicmodels*
+>Step-by-step operations to complete the dashboard on the DB *classicmodels*
 
-## Presentazione progetto
-* Cartella ```images```
-* Cartella ```pages```
+## Project presentation
+* Folder ```images```
+* Folder ```pages```
 * Script utils ```utils/utils.py```
 * File ```01_🏠_Home``` (homepage)
 
-### Avviare il progetto 
+### Starting the project 
 ``` pip install pipenv```
 
 ```pipenv shell```
@@ -17,157 +17,157 @@
 
 ```python -m streamlit run 01_🏠_Home.py```
 
-## Markdown e personalizzazione pagina
-Nella pagina Home:
+## Markdown and page customization
+In the Home page:
 
-1. Inserire la configurazione di pagina
+1. Insert the page configuration
 	```st.set_page_config()```
-2. Dividere in colonne ```st.columns([3,2])```
-3. Inserire titoli e sottotitoli ```st.title()``` e ```st.markdown()```
-4. (Opzionale) Personalizzare il tema
-5. Caricare l'immagine ```st.image()```
-6. Inizializzare il session state ```st.session_state["connection"]```
+2. Split into columns ```st.columns([3,2])```
+3. Insert headings and subheadings ```st.title()``` e ```st.markdown()```
+4. (Optional) Customize the theme
+5. Load the image ```st.image()```
+6. Initialize the session state ```st.session_state["connection"]```
 
-## Connessione al Database
-Definire le funzioni e i comandi per connettersi al database.
+## Connecting to the Database
+Define functions and commands to connect to the database.
 
-1. Includere le funzioni ```connect_db(dialect,username,password,host,dbname)``` e ```execute_query(conn,query)``` in *utils*
-2. Aggiungere la funzione ```check_connection()``` a *utils* e richiamarla nella home
-3. Visualizzare sulla sidebar il pulsante
+1. Include functions ```connect_db(dialect,username,password,host,dbname)``` and ```execute_query(conn,query)``` in *utils*
+2. Add the function ```check_connection()``` to *utils* and invoke it in the Home
+3. Show the button on the sidebar
 
-## Setup della pagina Analisi
-Definire la struttura della pagina
-1. Definire i tab ```st.tabs(["Prodotti","Staff","Clienti"])```
-2. Richiamare il check con comando per accedere al database attraverso il pulsante sulla sidebar:
+## Setup of the Analysis page
+Define the structure of the page
+1. Define tabs ```st.tabs(["Products","Staff","Customers"])```
+2. Invoke the check with command to access the database through the button on the sidebar:
 ```
 if check_connection():
 	pass
 ```
 
-### Visualizzazione Prodotti
-Panoramica delle principali informazioni riguardanti i prodotti in vendita. Creare la funzione ```create_tab_prodotti(tab_prodotti)```
-e aggiungerla al *main*:
+### Product Visualization
+Overview of the main information regarding the products on sale. Create the function ```create_products_tab(products_tab)```
+and add it to *main*:
 ```
 if check_connection():
-    create_tab_prodotti(tab_prodotti=tab_prodotti)
+    create_products_tab(products_tab=products_tab)
 ```
 
-#### Metriche
-Raccogliere le informazioni riguardante i pagamenti: *Importo totale, Pagamento Massimo, Pagamento Medio*.
+#### Metrics
+Collect payment information: *Total Amount, Max Payment, Average Payment*.
 
 SQL: ```SELECT SUM(amount) AS 'Total Amount', MAX(amount) AS 'Max Payment', AVG(amount) AS 'Average Payment' FROM payments:```
 
-1. Aggiungere la funzione ```compact_format(num)``` a *utils* per una migliore visualizzazione dei numeri grandi.
-2. Definire le 3 colonne con ```tab_prodotti.columns(3)```
-3. Per ogni colonna definire la metrica specifica con ```col.metric()```
+1. Add the function ```compact_format(num)``` to *utils* for a better visualization of large numbers.
+2. Define 3 columns with ```products_tab.columns(3)```
+3. For each column, define the specific metric with ```col.metric()```
 
-#### Panoramica Prodotti
-Visualizzare i prodotti in vendita con widget di personalizzazione della query riguardo al *sorting*.
-1. Definire il primo expander con la with notation e il flag `expanded=True` o `expanded=False` a piacimento
+#### Product Overview
+View products for sale with query customization widgets about the *sorting*.
+1. Define the first expander with the with notation and the flag `expanded=True` or `expanded=False` at will
 ```
-with tab_prodotti.expander("Panoramica Prodotti",True):
-	# Codice
+with products_tab.expander("Product Overview",True):
+	# Code
 ```
-2. Definire le colonne all'interno dell'expander con le dimensioni per migliorare la resa grafica.
-3. Definire il dizionario per il mapping di *DESC* e *ASC*
-3. Includere il *radio button*, il *select box* e il *button*
+2. Define the columns within the expander with dimensions to improve the graphic rendering.
+3. Define the dictionary for mapping *DESC* and *ASC*
+3. Include the *radio button*, *select box*, and *button*
 ```
 prod_col1.radio()
 prod_col2.selectbox()
 prod_col1.button():
 ```
-4. Eseguire la query e visualizzare il dataframe ottenuto
+4. Run the query and view the resulting dataframe
 
-#### Pagamenti
-Visualizzare l'andamento dei pagamenti con filtro temporale.
+#### Payments
+View the progress of payments with time filter.
 
-1. Definire il secondo expander con la with notation
+1. Define the second expander with notation
 ```
-with tab_prodotti.expander("Pagamenti",True):
-	# Codice
+with products_tab.expander("Payments",True):
+	# Code
 ```
-2. Eseguire la query per definire gli estremi temporali. SQL: ```SELECT MIN(paymentDate), MAX(paymentDate) FROM payments```
-3. Definire il widget per la selezione delle date, passando come valori di default la tupla ```(min_value,max_value)``` e i valori di massimo e minimo consentiti
+2. Run the query to define the time extremes. SQL: ```SELECT MIN(paymentDate), MAX(paymentDate) FROM payments```
+3. Define the widget for selecting dates, passing as default values the tuple ```(min_value,max_value)``` and the maximum and minimum allowed values
 ```
-st.date_input("Seleziona il range di date:",value=(min_value,max_value),
+st.date_input("Select date range:",value=(min_value,max_value),
 	min_value=min_value,max_value=max_value)
 ```
-4. Eseguire la query con filtraggio delle date e create il dataframe
-5. Verificare se il datafame è vuoto e gestire eventuali errori
+4. Run the query with date filtering and create the dataframe
+5. heck if the datafame is empty and handle any errors
 ```
-st.warning("Nessun dato trovato.",icon='⚠️')
+st.warning("No data found.",icon='⚠️')
 ```
-6. Modificare il tipo di dato per *paymentDate* e *Total Amount*
-7. Fare il plot del risultato
+6. Change the data type for *paymentDate* and *Total Amount*
+7. Plot the result
 ```
 st.line_chart(df_paymentDate,x="paymentDate",y='Total Amount')
 ```
 
 ### Staff
-Visualizzare brevemente informazioni sui dipendenti. Creare la funzione ```create_tab_prodotti(tab_prodotti)```
-e aggiungerla al *main*:
+Briefly view employee information. Create the function ```create_products_tab(products_tab)```
+and add it to *main*:
 ```
 if check_connection():
-    create_tab_prodotti(tab_prodotti=tab_prodotti)
-    create_tab_staff(tab_staff=tab_staff)
+    create_products_tab(products_tab=products_tab)
+    create_staff_tab(staff_tab=staff_tab)
 ```
-1. Recuperare il nome e cognome di *President* e *VP Sales*. SQL: 
+1. Retrieve the first and last name of *President* and *VP Sales*. SQL: 
 ```
 SELECT lastName,firstName FROM employees WHERE jobTitle='President'
 
 SELECT lastName,firstName FROM employees WHERE jobTitle='VP Sales'
 ```
-2. Personalizzare il markdown
-3. Recuperare le informazioni riguardo la distribuzione dei dipendenti nei vari ruoli. SQL: ```SELECT COUNT(*) as 'numeroClienti',country FROM customers GROUP by country order by `numeroClienti` DESC;```
+2. Customize markdown
+3. Retrieve information about the distribution of employees in different roles. SQL: ```SELECT COUNT(*) as 'customersNumber',country FROM customers GROUP by country order by `customersNumber` DESC;```
 
-4. Generare il dataframe e plottare il risultato:
+4. Generate the dataframe and plot the result:
 ```
 df_staff=pd.DataFrame(staff)
-tab_staff.bar_chart(df_staff,x='jobTitle',y='numDipendenti',use_container_width=True)
+staff_tab.bar_chart(df_staff,x='jobTitle',y='customersNumber',use_container_width=True)
 ```
 
-### Clienti
-Visualizzare brevemente le informazioni sui clienti in relazione al paese di origine.
-Creare la funzione ```create_tab_clienti(tab_prodotti)```
-e aggiungerla al *main*:
+### Customers
+Briefly view customer information in relation to country of origin.
+Create the function ```create_customers_tab(products_tab)```
+and add it to *main*:
 ```
 if check_connection():
-    create_tab_prodotti(tab_prodotti=tab_prodotti)
-    create_tab_staff(tab_staff=tab_staff)
-    create_tab_clienti(tab_clienti=tab_clienti)
+    create_products_tab(products_tab=products_tab)
+    create_staff_tab(staff_tab=staff_tab)
+    create_customers_tab(customers_tab=customers_tab)
 ```
-1. Creare le colonne nel tab clienti ```col1,col2=tab_clienti.columns(2)```
-2. Utilizzare il subheader per specificare il ruolo di ogni colonna
+1. Create columns on the customers tab ```col1,col2=customers_tab.columns(2)```
+2. Use the subheader to specify the role of each column
  ```
-col1.subheader("Distribuzione clienti nel mondo")
-col2.subheader("Clienti con maggior *credit limit* negli USA")
+col1.subheader("Worldwide cstomers distribution")
+col2.subheader("Customers with higher *credit limit* in the USA")
  ```
- 3. Recuperare le informazioni sull'origine dei clienti ordinandoli per numero. SQL:```
- 	SELECT COUNT(*) as 'numeroClienti',country FROM customers GROUP by country order by ``numeroClienti` DESC;```
- 4. Recuperare le informazioni sui clienti **USA** con **creditLimit > 100000** ordinandoli in ordine decrescente. (N.B. questi valori potrebbero essere ulteriori input dell'utente in futuro)
-5. Impostare un'altezza identica per i due df e visualizzarli
+ 3. Retrieve customer origin information sorting them by number. SQL:```
+ 	SELECT COUNT(*) as 'customersNumber',country FROM customers GROUP by country order by ``customersNumber` DESC;```
+ 4. Retrieve customer information **USA** with **creditLimit > 100000** sorting them in descending order. (N.B. these values may be additional user input in the future)
+5. Set an identical height for the two df and display them
 ```
 col1.dataframe(df,use_container_width=True,height=350)
 col2.dataframe(df,use_container_width=True,height=350)
 ```
 
 
-## Aggiungere un prodotto
-Creare un form per aggiungere un nuovo prodotto al DB.
-### Creazione del form
-Creare la funzione ```create_form()``` e richiamarla nel main 
+## Add a product
+Create a form to add a new product to the DB.
+### Creating the form
+Create the function ```create_form()``` and invoke it in the main
 ```
 if check_connection():
 	create_form()
 ```
-Includere il widget del form a cui aggiungere i vari parametri:
+Include the form widget to which you want to add the various parameters:
 ```
-with st.form("Nuovo Prodotto"):
-	st.header(":blue[Aggiungi prodotto:]")
+with st.form("New Product"):
+	st.header(":blue[Add product:]")
 ```
-Creare le funzioni ```get_info()``` e ```get_list(attributo)``` che recuperano tutti i valori distinti possibili per un dato attributo e li restituisce come lista. Ottenere così la lista di *categorie, scale, venditori* all'interno del form per creare le opzioni tra cui scegliere. 
-#### Widget di input
-Inserire i widget per ricevere come input *code, nome,categoria,scala,venditore,descerizione,quantità,prezzo,MSRP* utilizzando:
+Create functions ```get_info()``` and ```get_list(attribute)``` which retrieve all possible distinct values for a given attribute and return them as a list. Get the list of *categories, scales, vendors* within the form to create the options to choose from.
+#### Input widget
+Insert widgets to receive as input *code, name, category, scale, vendor, description, quantity, price, MSRP* using:
 ```
 st.text_input("",placeholder="")
 st.selectbox("",)
@@ -175,24 +175,24 @@ st.text_area("",placeholder="")
 st.slider("",,)
 st.number_input("",)
 ```
-Creare il dizionario che raccolga i parametri e **includere il submit button**:
+Create a dictionary that collects the parameters and **include the submit button**:
 ```
-insert_dict= {"productCode":code, "productName":nome,"productLine":categoria,"productScale":scala,"productVendor":venditore,"productDescription":descrizione,"quantityInStock":qta,"buyPrice":prezzo,"MSRP":msrp}
+insert_dict= {"productCode":code, "productName":name,"productLine":category,"productScale":scale,"productVendor":vendor,"productDescription":description,"quantityInStock":quantity,"buyPrice":price,"MSRP":msrp}
 submitted =st.form_submit_button("Submit",type='primary')
 ```
-#### Eseguire l'*insert*
-Definire la funzione ```insert(prod_dict)``` che si occupa di eseguire la query e la funzione ```check_info(prod_dict)``` per controllare che non ci siano campi testuali lasciati vuoti.
+#### Execute the *insert*
+Define the function ```insert(prod_dict)``` which takes care of executing the query and the function ```check_info(prod_dict)``` to check that there are no text fields left blank.
 
-#### Verifica che l'inserimento sia andato a buon fine
+#### Check that the insertion was successful
 
-Fuori dal form verificare che, quando il tasto *submit* viene premuto, sia stato possibile completare l'operazione con successo e printare lo status:
+Outside the form, verify that, when the *submit* button is pressed, it was possible to complete the operation successfully and print the status:
 ```
  if submitted:
-        #verificare che l'inserimento sia andato a buon fine oppure no
+        #check that the insertion was successful or not
         if insert(insert_dict):
-            st.success("Hai inserito questo prodotto: ",icon='✅ ')
+            st.success("You have added this product: ",icon='✅ ')
             st.write(insert_dict)
         else:
-            st.error("Impossibile aggiungere il prodotto.",icon='⚠️')
+            st.error("Unable to add product.",icon='⚠️')
 ```
 
