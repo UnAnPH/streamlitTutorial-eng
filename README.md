@@ -1,28 +1,28 @@
 # Streamlit Tutorial
-Branch base per avviare un nuovo progetto generico Streamlit con multipage.
+Base branch to start a new Streamlit generic project with multipage.
 
-```git clone https://github.com/AndreaAvignone/streamlitTutorial.git```
+```git clone https://github.com/Cryst4lDr4g0n/streamlitTutorial-eng.git```
 
-## Cambiare branch con Git
+## Switch branches with Git
 ```
 git checkout live_coding
 ```
 
 ## Virtual env
-Si suggerisce di creare un virtual environment (e.g., venv, pipenv).
+It is suggested to create a virtual environment (e.g., venv, pipenv).
 
 ```pip install --user pipenv```
 
 ## Run
 
-Avviare il virtual env:
+Start the virtual env:
 
 ```pipenv shell```
 
-Installare i moduli Python necessari:
+Install the required Python modules:
 
 ```pip install -r requirements.txt```
 
-Avviare l'applicazione:
+Start the application:
 
 ```python -m streamlit run Home.py```
