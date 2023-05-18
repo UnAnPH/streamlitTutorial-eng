@@ -23,7 +23,7 @@ In the Home page:
 1. Insert the page configuration
 	```st.set_page_config()```
 2. Split into columns ```st.columns([3,2])```
-3. Insert headings and subheadings ```st.title()``` e ```st.markdown()```
+3. Insert headings and subheadings ```st.title()``` and ```st.markdown()```
 4. (Optional) Customize the theme
 5. Load the image ```st.image()```
 6. Initialize the session state ```st.session_state["connection"]```
