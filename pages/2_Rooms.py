@@ -33,9 +33,9 @@ if __name__ == "__main__":
             queryType=f"AND Type='{type.lower()}'" if type!='All' else ''
             #st.write(amenityQuery)
         if kitchenFlag:
-            query=f"""SELECT CodR,Floor,SurfaceArea,Type,HAS_AMENITIES.AMENITIES_Amenity, HAS_SPACES.SPACES_Spaces
+            query=f"""SELECT CodR,Floor,SurfaceArea,Type,HAS_AMENITIES.AMENITIES_Amenity, HAS_SPACES.SPACES_Space
             FROM `ROOM`, `HAS_AMENITIES`,`HAS_SPACES`
-            WHERE CodR=HAS_AMENITIES.ROOM_CodR AND CodR=HAS_SPACES.ROOM_CodR {queryType} {amenityQuery} AND HAS_SPACES.SPACES_Spaces='kitchen' 
+            WHERE CodR=HAS_AMENITIES.ROOM_CodR AND CodR=HAS_SPACES.ROOM_CodR {queryType} {amenityQuery} AND HAS_SPACES.SPACES_Space='kitchen' 
             """
         else:
             query=f"""SELECT CodR,Floor,SurfaceArea,Type,HAS_AMENITIES.AMENITIES_Amenity
@@ -51,7 +51,7 @@ if __name__ == "__main__":
             if kitchenFlag:
                 query=f"""SELECT DISTINCT CodR,Floor,Type
                 FROM `ROOM`, `HAS_AMENITIES`,`HAS_SPACES`
-                WHERE CodR=HAS_AMENITIES.ROOM_CodR AND CodR=HAS_SPACES.ROOM_CodR {queryType} {amenityQuery} AND HAS_SPACES.SPACES_Spaces='kitchen' 
+                WHERE CodR=HAS_AMENITIES.ROOM_CodR AND CodR=HAS_SPACES.ROOM_CodR {queryType} {amenityQuery} AND HAS_SPACES.SPACES_Space='kitchen' 
                 GROUP BY CodR
                 """
             else:
