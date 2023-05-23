@@ -118,7 +118,7 @@ SELECT lastName,firstName FROM employees WHERE jobTitle='President'
 SELECT lastName,firstName FROM employees WHERE jobTitle='VP Sales'
 ```
 2. Customize markdown
-3. Retrieve information about the distribution of employees in different roles. SQL: ```SELECT COUNT(*) as 'customersNumber',country FROM customers GROUP by country order by `customersNumber` DESC;```
+3. Retrieve information about the distribution of employees in different roles. SQL: ```SELECT jobTitle, COUNT(*) as numEmployees FROM employees GROUP by jobTitle order by numEmployees DESC;```
 
 4. Generate the dataframe and plot the result:
 ```
@@ -139,11 +139,11 @@ if check_connection():
 1. Create columns on the customers tab ```col1,col2=customers_tab.columns(2)```
 2. Use the subheader to specify the role of each column
  ```
-col1.subheader("Worldwide cstomers distribution")
+col1.subheader("Worldwide customers distribution")
 col2.subheader("Customers with higher *credit limit* in the USA")
  ```
  3. Retrieve customer origin information sorting them by number. SQL:```
- 	SELECT COUNT(*) as 'customersNumber',country FROM customers GROUP by country order by ``customersNumber` DESC;```
+ 	SELECT COUNT(*) as 'customersNumber',country FROM customers GROUP by country order by 'customersNumber' DESC;```
  4. Retrieve customer information **USA** with **creditLimit > 100000** sorting them in descending order. (N.B. these values may be additional user input in the future)
 5. Set an identical height for the two df and display them
 ```
